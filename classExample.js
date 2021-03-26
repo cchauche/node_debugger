@@ -10,7 +10,7 @@ const Item = function (name, weight, value) {
   this.name = name;
   this.weight = weight;
   this.value = value;
-  this.maxUses = Math.floor(Math.random() * 10);
+  this.maxUses = Math.max(Math.floor(Math.random() * 10), 1);
   this.uses = 0;
 };
 
@@ -27,7 +27,7 @@ Item.prototype.use = function () {
 
 const Sword = function (name, weight, value, damage) {
   Item.call(this, name, weight, value);
-  this.uses = 10;
+  this.maxUses = 4;
   this.damage = damage;
 };
 
@@ -45,4 +45,10 @@ Sword.prototype.attack = function () {
 };
 
 let lantern = new Item('Lantern', 1, 20);
+lantern.use();
 let excalibur = new Sword('Excalibur', 8, 1000, 30);
+excalibur.attack();
+excalibur.attack();
+excalibur.attack();
+excalibur.attack();
+excalibur.attack();
