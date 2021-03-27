@@ -42,7 +42,7 @@ app.get('/api', (req, res) => {
         res.sendStatus(500);
       });
   } else {
-    console.log('good')
+    debugger;
     axios
       .get(GITHUB_API_HOST + '/user', { headers: authHeaders })
       .then((response) => {

@@ -5,9 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "debug": "node --inspect server.js",
-    "nodemon": "nodemon --inspect server.js"
+    "start": "node server/server.js",
+    "debug": "node --inspect server/server.js",
+    "nodemon": "nodemon --inspect server/server.js"
   },
   "repository": {
     "type": "git",
