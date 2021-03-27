@@ -23,15 +23,12 @@ app.get('/', (req, res) => {
 app.get('/api', (req, res) => {
   // If username is provided fetch from /users/:username
   let username = req.query.githubHandle;
-  console.log(username);
   if (req.query.githubHandle) {
-    // Fetch from /user
     axios
       .get(GITHUB_API_HOST + `/users/${username}`, {
         headers: authHeaders,
       })
       .then((response) => {
-        console.log(response);
         // TODO: Fill in the object with the github username and the number of public repos the user has
         res.send(
           resTemp.public({ username: 'FIX ME', public: 'FIX ME', url: rootUrl })
@@ -42,10 +39,10 @@ app.get('/api', (req, res) => {
         res.sendStatus(500);
       });
   } else {
-    debugger;
     axios
       .get(GITHUB_API_HOST + '/user', { headers: authHeaders })
       .then((response) => {
+        // TODO: Fill in the object with the github username and the number of public + private repos the user has.
         res.send(
           resTemp.private({
             username: 'FIX ME',
