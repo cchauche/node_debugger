@@ -21,13 +21,14 @@ app.get('/', (req, res) => {
 
 app.get('/api', (req, res) => {
   // TODO: Figure out how to get the username from the req object
+  // debugger
   let username = 'FIX ME';
   if (req.query.githubHandle) {
     axios
       .get(GITHUB_API_HOST + `/users/${username}`, {
         headers: authHeaders,
       })
-      .then((response) => {
+      .then((gitHubRes) => {
         // TODO: Fill in the object with the github username and the number of public repos the user has
         res.send(
           resTemp.public({ username: 'FIX ME', public: 'FIX ME', url: rootUrl })
@@ -40,8 +41,8 @@ app.get('/api', (req, res) => {
   } else {
     axios
       .get(GITHUB_API_HOST + '/user', { headers: authHeaders })
-      .then((response) => {
-        // TODO: Fill in the object with the github username and the number of public + private repos the user has.
+      .then((gitHubRes) => {
+        // TODO: Fill in the object with the github username and the number of public + private repos the user has
         res.send(
           resTemp.private({
             username: 'FIX ME',
