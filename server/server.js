@@ -12,7 +12,6 @@ const authHeaders = {
 const rootUrl = 'http://localhost:' + PORT;
 
 const app = express();
-
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 
@@ -21,8 +20,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api', (req, res) => {
-  // If username is provided fetch from /users/:username
-  let username = req.query.githubHandle;
+  // TODO: Figure out how to get the username from the req object
+  let username = 'FIX ME';
   if (req.query.githubHandle) {
     axios
       .get(GITHUB_API_HOST + `/users/${username}`, {
