@@ -23,7 +23,16 @@ const raiseToRecursive = (base, exponent) => {
   return multiply(base, raiseToRecursive(base, exponent - 1))
 }
 
-console.log('Add 2 + 3 should equal 5: ',add(2,3) === 5);
-console.log('Multiply 2x5 should equal 10: ',multiply(2,5) === 10);
-console.log('Raise 2 to the 4th should equal 16: ', raiseToRecursive(2,4) === 16);
-console.log('Adds Done: ', addsDone);
+// ================ TESTS ================ //
+
+const logTest = (testName, expected, result) => {
+  let pass = expected === result;
+  let color = pass ? '\x1b[32m%s\x1b[0m' : '\x1b[31m%s\x1b[0m'
+  console.log(color, '* ' + testName);
+  console.log(`-- ${pass} | Expected "${expected}" and got "${result}"`)
+}
+
+logTest('Add 2 + 3 should equal 5', 5, add(2,3))
+logTest('Multiply 2x5 should equal 10', 10, multiply(2,5))
+logTest('Raise 2 to the 4th should equal 16', 16, raiseToRecursive(2,4))
+console.log('Adds Done: ', addsDone, '\n');
