@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Node Debugging</title>
-</head>
-<body>
-  <h1>Github User Stats</h1>
-  <form action="/api" method="GET">
-    <label for="githubHandle">Github Handle:</label>
-    <input type="text" name="githubHandle" id="githubHandle" />
-    <input type="submit" value="Get Stats">
-  </form>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Node Debugging</title>
+  </head>
+  <body style="text-align: center">
+    <main style="width: 900px; margin-left: auto; margin-right: auto;">
+      <h1>Github User Stats</h1>
+      <form action="/api" method="GET">
+        <label for="githubHandle">Github Handle:</label>
+        <input type="text" name="githubHandle" id="githubHandle" />
+        <input type="submit" value="Get Stats" />
+      </form>
+      <p>
+        When you supply a valid github handle/username this service will display
+        the number of public repos the user has. If no handle/username is
+        supplied then the number of public and private repos you have will be
+        shown.
+      </p>
+    </main>
+  </body>
 </html>
