@@ -1,7 +1,9 @@
 # Debugging Node with Dev-Tools Workshop
-> This repo is designed to give a hands on demonstration to students about connecting the Chrome DevTools to Node for debugging purposes
+This repo is designed to give a hands on demonstration to students about connecting the Chrome DevTools to Node for debugging purposes
 
 ## Table of Contents
+
+- [Requirements](#requirements)
 
 - [Find the Bug in contrivedMath.js](#find-the-bug-in-contrivedmath.js)
 
@@ -12,6 +14,12 @@
 - [Resources](#resources)
 
 ---
+
+## Requirements
+
+- Node v14.0.0 or later
+- Google Chrome browser
+- Active GitHub account (to generate a token for the server example)
 
 ## Find the Bug in contrivedMath.js
 
@@ -29,7 +37,7 @@
     ```
     Debugger listening on ws://127.0.0.1:9229/384a1781-a802-451d-870b-87d6a60c2638
     ```
-  - Copy from `ws://` to the end of the line and past that in to the address bar of a new chrome tab.
+  - Copy from `ws://` to the end of the line and paste that in to the address bar of a new chrome tab.
   - Don't be surprised if it looks like you navigated to the wrong page, first open the console (⌘⌥J on Mac) and look for a green hexagon along the top of the DevTools panel. (See Image)
 
       ![Connect DevTools To Node](images/connectToNode.png)
@@ -37,6 +45,8 @@
 ### Lets find that bug!
 ---
 ## Navigating the DevTools
+The following features of the DevTools debugger are the ones that I regularly use.  Getting familiar with how to navigate through the code is essential to making the debugger a pleasant and effective tool.  With some practice you will be able to quickly zero in on exactly the information you need to squash any bug in your code.
+
 >To dive deeper in to using DevTools please check the [DevTools Docs](https://developer.chrome.com/docs/devtools/) especially [Debug Javascript](https://developer.chrome.com/docs/devtools/javascript/)
 
 ### Advancing through the code
@@ -49,28 +59,34 @@
 - Continue to here (⌘ + Click on a stopping point)
 
 ### Break Points
-- Add them
-- Remove them
-- debugger (keyword)
-- Make them conditional
+- Add a break point
+- Remove a break point
+- Enable/Disable a break point
+- Using `debugger` keyword in code to add a break point
+- Conditional break points
 
 ### Debugger Panes
 - Scope
 - Call Stack
 - Watch
 
-> Connect DevTools to both `contrivedMath.js` and ` classExample.js` to practice using the various tools outlined above.
+Following the instructions from the previous section you can run `contrivedMath.js` and ` classExample.js` with the DevTools attached to practice using the various tools outlined above.
+
 ---
 
 ## Fix The Server
 
 ### Installation
-> Requires Node v14.00.0 or higher to be installed
+> Requires Node v14.0.0 or higher to be installed
 
 - From the root directory run `npm install`
-- Open `server/config.example.js` and follow the instructions to create a `config.js` file with your GitHub authentication token
+- Open `server/config.example.js` using a text editor or an IDE and follow the instructions to create a `config.js` file with your GitHub authentication token
 
-### Use DevTools To Inspect `req` and `gitHubRes` Variables 
+### Use DevTools To Inspect Complex Objects
+Frequently devs will turn to `console.log()` to see what various library objects look like but this can be a really difficult process since the objects are often large and complicated and the terminal where output is logged can't collapse these objects in an interactive fashion like the DevTools can. Lets try inspecting some complex objects in Node with the debugger to get familiar with the advantages this offers.
+
+### Start the Server and Attach DevTools
+
 - Nodemon can also be used while debugging just like with Node you just have to pass it the `--inspect` or the `--inspect-brk` flags.  Lets do that to start our server.
   ```
   nodemon --inspect server/server.js
@@ -78,14 +94,21 @@
   > Since we will be restarting the server while modifying code we are using `--inspect` here so that our code doesn't stop on the first line every time. Instead it will execute until it hits our first breakpoint or a `debugger` statement in the code.
 - Connect the DevTools to Node again then uncomment the `debugger` statement on line 24 in `server.js`.
 - In your browser go to http://localhost:3000 and submit something in the form.
-- The DevTools should now be paused on line 24.  We can now try and have a look at the `req` object to see where we can find the supplied github user to search for.
-  - One option is to use the Scope panel to explore the variable in scope
-  - Another option is to use the Console to interact with the variables in scope.
-    - Try typing `req` in the console then pressing enter
-    - Try typing `req.headers` in the console then pressing enter
-    - Try typing `req.query` in the console then pressing enter
-  - The username value comes in attached as part of the `req.query` object at the key 'githubHandle'. On line 25 replace `'FIX ME'` with `req.query.githubHandle`.
-  - See if you can pause the debugger to help you inspect the `gitHubRes` object to find the information you need to send back to the client. 
+- The DevTools should now be paused on line 24.
+> NOTE: I find that frequently when I first open the DevTools that the code and line where execution is paused wont show up.  I have two solutions when that happens. The first is just to advance the debugger by 1 step (F9), this usually gets the code to show up. If I know the file name then I will use the shortcut to open a file (⌘P) then type the filename in to the search bar to find and open the file.
+
+### Inspect `req` Object
+We should now have the debugger paused on line 24 inside the request handler. Since we have paused execution inside a function we now can access any variables that are in scope at the current line of execution. 
+
+We can now try and have a look at the `req` object to see where in the object we can find the supplied github user to search for.
+- One option is to use the Scope panel to explore the variables in scope. Take a moment to look through the `req` object in the scope panel
+- Another option is to use the Console to interact with the variables in scope.
+  > When you are in the debugger you can press `ESC` to toggle between hiding/showing the Console command line.
+  - Try typing `req` in the console then pressing enter
+  - Try typing `req.headers` in the console then pressing enter
+  - Try typing `req.query` in the console then pressing enter
+- The username value comes in attached as part of the `req.query` object at the key 'githubHandle'. On line 25 replace `'FIX ME'` with `req.query.githubHandle`.
+- See if you can pause the debugger to help you inspect the `gitHubRes` object to find the information you need to send back to the client. 
 
 
 # Resources
